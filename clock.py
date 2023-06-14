@@ -1,24 +1,27 @@
-from tkinter import *
-from tkinter.ttk import *
-from time import strftime
+import tkinter as tk
+import time as t
 
 # Creating tkinter window
-root = Tk()
+root = tk.Tk()
 root.title('Clock')
 
-# Display time on the label
+# Add timezone info
+timezone_info = t.tzname[t.daylight]
+timezone = tk.Label(root, text=timezone_info, font=('calibri', 30))
+timezone.pack(anchor='center')
+
+# Configure the clock
 def time():
-    string = strftime('%H:%M:%S')
-    lbl.config(text=string)
-    lbl.after(1000, time)
+    now = datetime.datetime.now()
+    time_12hr = now.strftime('%I:%M:%S %p')
+    clock.config(text=time_12hr)
+    clock.after(1000, time)
 
 # Appearance of the clock
-lbl = Label(root, font=('calibri', 40, 'bold'),
+clock = tk.Label(root, font=('calibri', 40, 'bold'),
             background='white',
             foreground='black')
-
-# Place clock at the center of the tkinter window
-lbl.pack(anchor='center')
+clock.pack(anchor='center')
 time()
 
-mainloop()
+root.mainloop()
